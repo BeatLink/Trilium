@@ -3,7 +3,7 @@ import { t } from "i18next";
 import Component from "../../components/component";
 import FNote from "../../entities/fnote";
 import attributes from "../../services/attributes";
-import CALENDAR_SLOT_DURATION from "../collections/calendar";
+import { CALENDAR_SLOT_DURATIONS } from "../collections/calendar/index";
 import { DEFAULT_MAP_LAYER_NAME, MAP_LAYERS, type MapLayer } from "../collections/geomap/map_layer";
 import { ViewTypeOptions } from "../collections/interface";
 import { DEFAULT_THEME, getPresentationThemes } from "../collections/presentation/themes";
@@ -66,7 +66,7 @@ export const bookPropertiesConfig: Record<ViewTypeOptions, BookConfig> = {
                 icon: "bx bx-time",
                 type: "combobox",
                 bindToLabel: "calendar:slotDuration",
-                options: Object.entries(CALENDAR_SLOT_DURATION).map(([durationId, durationLabel]) => ({
+                options: Object.entries(CALENDAR_SLOT_DURATIONS).map(([durationId, durationLabel]) => ({
                     value: durationId,
                     label: durationLabel
                 }))
@@ -76,7 +76,7 @@ export const bookPropertiesConfig: Record<ViewTypeOptions, BookConfig> = {
                 icon: "bx bx-time",
                 type: "combobox",
                 bindToLabel: "calendar:slotLabelInterval",
-                options: Object.entries(CALENDAR_SLOT_DURATION).map(([durationId, durationLabel]) => ({
+                options: Object.entries(CALENDAR_SLOT_DURATIONS).map(([durationId, durationLabel]) => ({
                     value: durationId,
                     label: durationLabel
                 }))
