@@ -1680,7 +1680,8 @@
     "note_context_enabled": "Click to disable note context: {{title}}",
     "note_context_disabled": "Click to include current note in context",
     "no_provider_message": "No AI provider configured. Add one to start chatting.",
-    "add_provider": "Add AI Provider"
+    "add_provider": "Add AI Provider",
+    "stop": "Stop"
   },
   "sidebar_chat": {
     "title": "AI Chat",
@@ -2386,7 +2387,11 @@
       "web_search": "Web search",
       "note_in_parent": "<Note/> in <Parent/>",
       "get_attachment": "Get attachment",
-      "get_attachment_content": "Read attachment content"
+      "get_attachment_content": "Read attachment content",
+      "rename_note": "Rename note",
+      "delete_note": "Delete note",
+      "move_note": "Move note",
+      "clone_note": "Clone note"
     }
   }
 }
