@@ -40,15 +40,6 @@ interface CalendarViewData {
     nextText: string;
 }
 
-export const CALENDAR_SLOT_DURATIONS = {
-    "00:01:00": "1 Minute",
-    "00:05:00": "5 Minutes",
-    "00:10:00": "10 Minutes",
-    "00:20:00": "20 Minutes",
-    "00:30:00": "30 Minutes",
-    "01:00:00": "1 Hour"
-};
-
 
 const CALENDAR_VIEWS = [
     {

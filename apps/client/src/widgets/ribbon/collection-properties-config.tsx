@@ -3,7 +3,6 @@ import { t } from "i18next";
 import Component from "../../components/component";
 import FNote from "../../entities/fnote";
 import attributes from "../../services/attributes";
-import { CALENDAR_SLOT_DURATIONS } from "../collections/calendar/index";
 import { DEFAULT_MAP_LAYER_NAME, MAP_LAYERS, type MapLayer } from "../collections/geomap/map_layer";
 import { ViewTypeOptions } from "../collections/interface";
 import { DEFAULT_THEME, getPresentationThemes } from "../collections/presentation/themes";
@@ -66,20 +65,28 @@ export const bookPropertiesConfig: Record<ViewTypeOptions, BookConfig> = {
                 icon: "bx bx-time",
                 type: "combobox",
                 bindToLabel: "calendar:slotDuration",
-                options: Object.entries(CALENDAR_SLOT_DURATIONS).map(([durationId, durationLabel]) => ({
-                    value: durationId,
-                    label: durationLabel
-                }))
+                options: [
+                    { value: "00:01:00", label: "1 Minute" },
+                    { value: "00:05:00", label: "5 Minutes" },
+                    { value: "00:10:00", label: "10 Minutes" },
+                    { value: "00:20:00", label: "20 Minutes" },
+                    { value: "00:30:00", label: "30 Minutes" },
+                    { value: "01:00:00", label: "1 Hour" }
+                ]
             },
             {
                 label: t("calendar_view.set_slot_label_interval"),
                 icon: "bx bx-time",
                 type: "combobox",
                 bindToLabel: "calendar:slotLabelInterval",
-                options: Object.entries(CALENDAR_SLOT_DURATIONS).map(([durationId, durationLabel]) => ({
-                    value: durationId,
-                    label: durationLabel
-                }))
+                options: [
+                    { value: "00:01:00", label: "1 Minute" },
+                    { value: "00:05:00", label: "5 Minutes" },
+                    { value: "00:10:00", label: "10 Minutes" },
+                    { value: "00:20:00", label: "20 Minutes" },
+                    { value: "00:30:00", label: "30 Minutes" },
+                    { value: "01:00:00", label: "1 Hour" }
+                ]
             },
         ]
     },
