@@ -3,7 +3,7 @@ import "./index.css";
 import { Calendar as FullCalendar } from "@fullcalendar/core";
 import { DateSelectArg, EventChangeArg, EventMountArg, EventSourceFuncArg, LocaleInput, PluginDef } from "@fullcalendar/core/index.js";
 import { DateClickArg } from "@fullcalendar/interaction";
-import { DISPLAYABLE_LOCALE_IDS } from "@triliumnext/commons";
+import { dayjs,DISPLAYABLE_LOCALE_IDS  } from "@triliumnext/commons";
 import { RefObject } from "preact";
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "preact/hooks";
 
@@ -39,6 +39,16 @@ interface CalendarViewData {
     previousText: string;
     nextText: string;
 }
+
+export const CALENDAR_SLOT_DURATIONS = {
+    "00:01:00": "1 Minute",
+    "00:05:00": "5 Minutes",
+    "00:10:00": "10 Minutes",
+    "00:20:00": "20 Minutes",
+    "00:30:00": "30 Minutes",
+    "01:00:00": "1 Hour"
+};
+
 
 const CALENDAR_VIEWS = [
     {
@@ -80,7 +90,7 @@ const CALENDAR_VIEWS = [
 
 const SUPPORTED_CALENDAR_VIEW_TYPE = CALENDAR_VIEWS.map(v => v.type);
 
-const DEFAULT_SLOT_DURATION = "00:30:00";
+const DEFAULT_SLOT_DURATION = "00:15:00";
 const DEFAULT_SLOT_LABEL_INTERVAL = "01:00:00";
 
 
@@ -140,6 +150,19 @@ export default function CalendarView({ note, noteIds }: ViewModeProps<CalendarVi
     const { eventDidMount } = useEventDisplayCustomization(note, parentComponent?.componentId);
     const editingProps = useEditing(note, isEditable, isCalendarRoot, parentComponent?.componentId);
 
+    const isValidDuration = (str) => {
+        if (!/^(\d{2}):([0-5]\d):([0-5]\d)$/.test(str)) return false;
+
+        const [hours, minutes, seconds] = str.split(':').map(Number);
+        const d = dayjs.duration({ hours, minutes, seconds });
+
+        const totalMs = d.asMilliseconds();
+        const oneMinute = dayjs.duration(1, 'minute').asMilliseconds();
+        const twentyFourHours = dayjs.duration(24, 'hours').asMilliseconds();
+
+        return totalMs >= oneMinute && totalMs <= twentyFourHours;
+    };
+
     // React to changes.
     useTriliumEvent("entitiesReloaded", ({ loadResults }) => {
         const api = calendarRef.current;
@@ -178,8 +201,8 @@ export default function CalendarView({ note, noteIds }: ViewModeProps<CalendarVi
                 firstDay={firstDayOfWeek ?? 0}
                 weekends={!hideWeekends}
                 weekNumbers={weekNumbers}
-                slotDuration={slotDuration || DEFAULT_SLOT_DURATION}
-                slotLabelInterval={slotLabelInterval || DEFAULT_SLOT_LABEL_INTERVAL}
+                slotDuration={isValidDuration(slotDuration) ? slotDuration : DEFAULT_SLOT_DURATION}
+                slotLabelInterval={isValidDuration(slotLabelInterval) ? slotLabelInterval : DEFAULT_SLOT_LABEL_INTERVAL}
                 height="90%"
                 nowIndicator
                 handleWindowResize={false}

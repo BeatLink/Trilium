@@ -177,6 +177,108 @@ Also note that the recurrence label can be made promoted as with the start and e
 > [!WARNING]
 > If the recurrence string is not valid, a toast will be shown with the note ID and title of the note with the erroneous recurrence message. This note will not be added to the calendar
 
+
+## Slot Duration & Slot Label Interval
+
+Trilium's calendar view is powered by FullCalendar, which gives you fine-grained control over how the time grid looks and behaves for day and week views. Two labels you can use to configure these views are `#slotDuration` and `#slotLabelInterval`. Understanding what each one does — and how they interact — lets you tailor the calendar to match your workflow, whether you're scheduling in 15-minute increments or planning out your day in broad hourly blocks.
+
+### `slotDuration`
+
+Controls how tall each time slot is on the calendar — essentially the smallest unit of time the grid is divided into. A shorter duration means more rows and finer granularity; a longer one means fewer, chunkier rows. The default is one row every 15 minutes
+
+**Examples:**
+
+| Value | Result |
+|---|---|
+| `#slotDuration="00:15:00"` | One row every 15 minutes |
+| `#slotDuration="00:30:00"` | One row every 30 minutes |
+| `#slotDuration="01:00:00"` | One row every hour |
+
+
+### `slotLabelInterval`
+
+Controls how often a time label appears on the left-hand axis. This is independent of the slot size — you can have very small slots but only label every hour to keep the axis readable. The default is a time label shown every hour.
+
+**Examples:**
+
+| Value | Result |
+|---|---|
+| `slotLabelInterval="00:30:00"` | Show a time label every 30 minutes |
+| `slotLabelInterval="01:00:00"` | Show a time label every hour |
+
+
+
+### Useful combinations
+
+| `slotDuration` | `slotLabelInterval` | Result |
+|---|---|---|
+| `00:15:00` | `01:00:00` | Fine grid, clean axis — good for busy schedules |
+| `00:30:00` | `01:00:00` | Standard calendar feel |
+| `01:00:00` | `01:00:00` | Simple hourly grid — good for day planning |
+| `00:15:00` | `00:30:00` | Fine grid, labels every 30 min — balanced detail |
+
+### Format
+
+Both values use `HH:mm:ss` format. Hours can go up to `24` (`24:00:00`), while minutes and seconds must be between `00` and `59`. The minimum meaningful duration is 1 minute (`00:01:00`).
+
+### Examples
+
+#### `#slotDuration="00:05:00"` — `#slotLabelInterval="00:30:00"`
+
+Slots every 5 minutes, but only labelled every 30 minutes. Useful for very precise scheduling without a cluttered axis.
+
+| Axis | Time |
+|---|---|
+| **9:00** | 9:00 |
+|  | 9:05 |
+|  | 9:10 |
+|  | 9:15 |
+|  | 9:20 |
+|  | 9:25 |
+| **9:30** | 9:30 |
+|  | 9:35 |
+|  | 9:40 |
+|  | 9:45 |
+|  | 9:50 |
+|  | 9:55 |
+| **10:00** | 10:00 |
+|  | 10:05 |
+|  | 10:10 |
+|  | 10:15 |
+|  | 10:20 |
+|  | 10:25 |
+| **10:30** | 10:30 |
+|  | 10:35 |
+|  | 10:40 |
+|  | 10:45 |
+|  | 10:50 |
+|  | 10:55 |
+
+---
+
+#### `#slotDuration="00:15:00"` — `#slotLabelInterval="01:00:00"`
+
+Slots every 15 minutes, but only labelled on the hour. A good balance between granularity and readability.
+
+| Axis | Time |
+|---|---|
+| **9:00** | 9:00 |
+|  | 9:15 |
+|  | 9:30 |
+|  | 9:45 |
+| **10:00** | 10:00 |
+|  | 10:15 |
+|  | 10:30 |
+|  | 10:45 |
+| **11:00** | 11:00 |
+|  | 11:15 |
+|  | 11:30 |
+|  | 11:45 |
+| **12:00** | 12:00 |
+|  | 12:15 |
+|  | 12:30 |
+
+
 ## Use-cases
 
 ### Using with the Journal / calendar
