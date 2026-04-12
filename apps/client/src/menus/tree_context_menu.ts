@@ -191,6 +191,8 @@ export default class TreeContextMenu implements SelectMenuItemEventListener<Tree
 
             { title: t("tree-context-menu.copy-clone"), command: "copyNotesToClipboard", keyboardShortcut: "copyNotesToClipboard", uiIcon: "bx bx-copy", enabled: isNotRoot && !isHoisted },
 
+            { title: t("tree-context-menu.copy-external-link"), command: "copyNoteExternalLink", uiIcon: "bx bx-copy", enabled: true },
+
             {
                 title: t("tree-context-menu.paste-into"),
                 command: "pasteNotesFromClipboard",
@@ -350,6 +352,11 @@ export default class TreeContextMenu implements SelectMenuItemEventListener<Tree
             toastService.showMessage(t("tree-context-menu.converted-to-attachments", { count: converted }));
         } else if (command === "copyNotePathToClipboard") {
             navigator.clipboard.writeText(`#${  notePath}`);
+
+        } else if (command === "copyNoteExternalLink") {
+            const link = `trilium://${notePath}`;
+            navigator.clipboard.writeText(link);
+            toastService.showMessage(t("tree-context-menu.copied-external-link"));
         } else if (command) {
             this.treeWidget.triggerCommand<TreeCommandNames>(command, {
                 node: this.node,

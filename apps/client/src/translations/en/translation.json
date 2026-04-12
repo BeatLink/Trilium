@@ -1593,6 +1593,8 @@
     "copy-clone": "Copy / clone",
     "clone-to": "Clone to...",
     "cut": "Cut",
+    "copy-external-link": "Copy external note link",
+    "copied-external-link": "Trilium link copied to clipboard",
     "move-to": "Move to...",
     "paste-into": "Paste into",
     "paste-after": "Paste after",

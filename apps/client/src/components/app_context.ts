@@ -177,6 +177,7 @@ export type CommandMappings = {
     recentChangesInSubtree: ContextMenuCommandData;
     cutNotesToClipboard: ContextMenuCommandData;
     copyNotesToClipboard: ContextMenuCommandData;
+    copyNoteExternalLink: ContextMenuCommandData;
     pasteNotesFromClipboard: ContextMenuCommandData;
     pasteNotesAfterFromClipboard: ContextMenuCommandData;
     moveNotesTo: ContextMenuCommandData;
